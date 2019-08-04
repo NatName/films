@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="/style.css">
+    <script>
+      window.onload = function() {
+          const NameStars = document.querySelectorAll(".NameStars");
+          const error = document.querySelectorAll(".error");
+          const searchNameFilm = document.getElementById("searchName");
+          searchNameFilm.addEventListener("keyup", searchTitle, false);
+          searchNameFilm.addEventListener("click", deleteElementFromStar, false);
+          const searchStar = document.getElementById("searchStar");
+          searchStar.addEventListener("keyup", searchStars, false);
+          searchStar.addEventListener("click", deleteElementFromName, false);
+          function deleteElementFromStar() {
+            searchStar.value = "";
+            for(item of NameStars) {
+              item.style.display = 'table-row';
+            }
+          }
+          function deleteElementFromName() {
+            searchNameFilm.value = "";
+            for(item of NameStars) {
+              item.style.display = 'table-row';
+            }
+          }
+          function searchStars() {
+            const items = document.querySelectorAll(".stars");
+            Array.prototype.forEach.call(items, function(el, index) {
+              if (el.textContent.trim().indexOf(searchStar.value) > -1)
+                NameStars[index].style.display = 'table-row';
+              else NameStars[index].style.display = 'none';
+            });
+            isArrayEmpty();
+          }
+
+          function isArrayEmpty() {
+            for(item of NameStars) {
+              if(item.style.display === 'table-row') {
+                error[0].style.display = 'none';
+                return;
+              }
+            }
+            error[0].style.display = 'table-row';
+          }
+
+          function searchTitle() {
+            const items = document.querySelectorAll(".element");
+            Array.prototype.forEach.call(items, function(el, index) {
+              if (el.textContent.trim().indexOf(searchNameFilm.value) > -1)
+                NameStars[index].style.display = 'table-row';
+              else NameStars[index].style.display = 'none';
+            });
+            isArrayEmpty();
+          }
+      }
+    </script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Films</title>
+  </head>
+  <body>
+    <form method="post" enctype="multipart/form-data">
+      <div class="input-group">
+        <div class="custom-file">
+          <input type="file" id="file" name="file" class="custom-file-input">
+          <label for="file" class="custom-file-label">Choose a file</label>
+        </div>
+        <div class="input-group-append">
+          <button class="btn btn-outline-secondary"> Send the file</button>
+        </div>
+      </div>
+    </form>
+    <form class="" action="/" method="post">
+      <div class="input-group mb-3">
+        <input id="searchName" class="form-control" type="text" name="searchName" placeholder="search name...">
+        <div class="input-group-append">
+          <span class="input-group-text" id="basic-addon2">name</span>
+        </div>
+      </div>
+      <div class="input-group mb-3">
+        <input id="searchStar" class="form-control" type="text" name="searchStar" placeholder="search star...">
+        <div class="input-group-append">
+          <span class="input-group-text" id="basic-addon2">star</span>
+        </div>
+      </div>
+    </form>
+    <p><a href="add" class="list-group-item list-group-item-action">add film</a></p>
+    <form class="" action="/" method="post">
+      <input type="text" name="delete" class="input-width">
+      <button type="submit" value="true" name="deleteSubmit" class="btn btn-danger">Delete</button>
+      <button type="submit" value="true" name="sort" class="btn btn-primary">Sort</button>
+    </form>
+      <table class="table">
+        <tr class="head">
+          <td>Movie Title</td>
+          <td>Stars</td>
+        </tr>
+        <% for(const item of items) { %>
+        <tr class="NameStars">
+            <td class="element"><a href="info/<%= item._id %>"><%= item.Title %></a></td>
+            <td class="stars"><%= item.Stars %></td>
+        </tr>
+          <% } %>
+          <tr class="error"><td>Not found</td></tr>
+      </table>
+
+      <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+  </body>
+</html>
