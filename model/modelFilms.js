@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 let filmDataSchema = new Schema({
   Title: String,
-  Year: Number,
+  "Release Year": Number,
   Format: String,
   Stars: String
 }, {collection: 'film-data'});

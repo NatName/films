@@ -5,6 +5,7 @@
     <link rel="stylesheet" href="/style.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <title>Add</title>
+
   </head>
   <body>
     <form class="" action="/add" method="post">
@@ -15,23 +16,29 @@
         </div>
       </div>
       <div class="input-group mb-3">
-        <input class="form-control" type="text" id="year" name="year" placeholder="year..." pattern="\d+">
+        <input class="form-control" type="text" id="year" name="year" placeholder="year..." pattern="(19\d\d)|(20[01]\d)">
         <div class="input-group-append">
           <span class="input-group-text" id="basic-addon2">year</span>
         </div>
       </div>
       <div class="input-group mb-3">
-        <input class="form-control" type="text" id="format" name="format" placeholder="format...">
+        <select name="format" id="format" class="custom-select">
+          <option selected>Choose...</option>
+          <option value="DVD">DVD</option>
+          <option value="VHS">VHS</option>
+          <option value="Blu-Ray">Blu-Ray</option>
+        </select>
         <div class="input-group-append">
-          <span class="input-group-text" id="basic-addon2">format</span>
+          <label class="input-group-text" for="inputGroupSelect02">Formats</label>
         </div>
       </div>
       <div class="input-group mb-3">
-        <input class="form-control" type="text" id="stars" name="stars" placeholder="stars...">
+        <input class="form-control" type="text" id="stars" name="stars" placeholder="stars..."  >
         <div class="input-group-append">
           <span class="input-group-text" id="basic-addon2">stars</span>
         </div>
       </div>
+      <p><%= error %></p>
       <button class="btn btn-secondary" type="submit">Add</button>
     </form>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

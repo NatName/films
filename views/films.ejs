@@ -71,6 +71,7 @@
         </div>
       </div>
     </form>
+    <p><%= error %></p>
     <form class="" action="/" method="post">
       <div class="input-group mb-3">
         <input id="searchName" class="form-control" type="text" name="searchName" placeholder="search name...">
@@ -87,8 +88,6 @@
     </form>
     <p><a href="add" class="list-group-item list-group-item-action">add film</a></p>
     <form class="" action="/" method="post">
-      <input type="text" name="delete" class="input-width">
-      <button type="submit" value="true" name="deleteSubmit" class="btn btn-danger">Delete</button>
       <button type="submit" value="true" name="sort" class="btn btn-primary">Sort</button>
     </form>
       <table class="table">
@@ -100,6 +99,7 @@
         <tr class="NameStars">
             <td class="element"><a href="info/<%= item._id %>"><%= item.Title %></a></td>
             <td class="stars"><%= item.Stars %></td>
+            <td> <form class="" action="/" method="post"><button type="submit" value="<%= item.Title %>" name="deleteSubmit" class="btn btn-danger">Delete</button></form></td>
         </tr>
           <% } %>
           <tr class="error"><td>Not found</td></tr>

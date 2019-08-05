@@ -1,18 +1,52 @@
 
 class Film {
-     static getMovies(films) {
-       const middleWare = films.toString().split(/:|\n/).filter(temp => temp != '');
-       let movies = [];
-       let id = 0;
-           for(let i = 0; i < middleWare.length; i+=8) {
-             movies.push({Id: id++,
-               Title: middleWare[i + 1].trim(),
-               Year: parseInt(middleWare[i + 3]),
-               Format: middleWare[i + 5].trim(),
-               Stars: middleWare[i + 7].trim()
-               })
-           }
-           return movies;
+     static getMovies(moviesBuffer) {
+        const movies = moviesBuffer.toString().split(/\n/).filter(temp => temp != '');
+        let oneFilm = {
+          Title: "",
+          "Release Year": 0,
+          Format: "",
+          Stars: ""
+        };
+        let films = [], counter = 1;
+        for(let movie of movies) {
+          for(let film in oneFilm) {
+            if(movie.includes(film)) {
+              oneFilm[film] = movie.slice(film.length + 1).trim();
+            }
+          }
+          if(oneFilm["Stars"] !== "" && oneFilm["Title"] !== "" &&
+            oneFilm["Release Year"] !== 0 && oneFilm["Format"] !== "") {
+            films.push(Object.assign(oneFilm));
+            oneFilm = {
+              Title: "",
+              "Release Year": 0,
+              Format: "",
+              Stars: ""
+            };
+          } else if (counter % 4 === 0) {
+            return false;
+          }
+          counter++;
+        }
+        return films;
+     }
+     static check(films) {
+        if(films === false) return false;
+        let starsOfFilm = [];
+        for (let film of films) {
+          starsOfFilm = film["Stars"].split(",");
+          if(!/(\w|\s|\.|:)+/.test(film["Title"]) ||
+            !/(19\d\d)|(20[01]\d)/.test(film["Release Year"]) ||
+            !/(DVD|VHS|Blu-Ray)/.test(film["Format"]) ||
+            !starsOfFilm.every(temp => /[A-Z][a-z]+\s+[A-Z][a-z]+/.test(temp.trim())))
+              return false;
+        }
+        return true;
+    }
+    static checkStars(stars) {
+      let starsOfFilm = stars.split(",");
+      return starsOfFilm.every(temp => /[A-Z][a-z]+\s+[A-Z][a-z]+/.test(temp.trim()));
     }
 }
 
