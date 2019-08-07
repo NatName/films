@@ -36,17 +36,19 @@ class Film {
         let starsOfFilm = [];
         for (let film of films) {
           starsOfFilm = film["Stars"].split(",");
-          if(!/(\w|\s|\.|:)+/.test(film["Title"]) ||
-            !/(19\d\d)|(20[01]\d)/.test(film["Release Year"]) ||
-            !/(DVD|VHS|Blu-Ray)/.test(film["Format"]) ||
-            !starsOfFilm.every(temp => /[A-Z][a-z]+\s+[A-Z][a-z]+/.test(temp.trim())))
+          console.log(film["Title"]);
+          if(!/(\w|\s|\.|:)+/.test(film["Title"].toString()) ||
+            !/(19\d\d\s)|(20[01]\d\s)/.test(film["Release Year"].toString().trim() + " ") ||
+            !/((DVD|VHS|Blu-Ray)\s)/.test(film["Format"] + " ") ||
+            !starsOfFilm.every(temp => /[A-Za-z]+\s+[A-Za-z]+\s/.test(temp.trim() + ' ')))
               return false;
         }
         return true;
-    }
+     }
     static checkStars(stars) {
       let starsOfFilm = stars.split(",");
-      return starsOfFilm.every(temp => /[A-Z][a-z]+\s+[A-Z][a-z]+/.test(temp.trim()));
+      console.log(starsOfFilm);
+      return starsOfFilm.every(temp => /[A-Z][a-z]+\s+[A-Z][a-z]+\s/.test(temp.trim() + ' '));
     }
 }
 

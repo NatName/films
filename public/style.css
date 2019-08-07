@@ -38,3 +38,54 @@ td {
    font-weight: bold;
    margin-right: 5px;
  }
+
+ .errors {
+   background: #e79892;
+   padding: 5px;
+   margin-bottom: 10px;
+   min-width: 200px;
+   display: inline-block;
+   border: 1px solid #e74c3c;
+ }
+
+ .errors ul {
+   margin: 0;
+   padding: 0;
+   list-style: none;
+ }
+
+ .error_input {
+   border: 1px solid red;
+ }
+
+ .windowConfirm {
+   background: #000;
+   height: 100%;
+   opacity: 0.9;
+   position: fixed;
+   width: 100%;
+   z-index: 100;
+   top: 0;
+   left: 0;
+   display: none;
+ }
+
+ .popup {
+   background-color: #fff;
+   position: relative;
+   margin: 0 auto;
+   height: 165px;
+   top: 300px;
+   padding: 40px;
+   border-radius: 4px;
+   color: #000;
+   width: 300px;
+ }
+
+ .button {
+   display: inline-block;
+ }
+
+ .twoButtons {
+   text-align: center;
+ }

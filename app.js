@@ -4,7 +4,6 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const films = require('./routes/films');
 
-
 const app = express();
 
 mongoose.connect("mongodb://localhost:27017/films", { useNewUrlParser: true });

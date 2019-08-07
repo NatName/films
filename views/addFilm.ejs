@@ -5,9 +5,38 @@
     <link rel="stylesheet" href="/style.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <title>Add</title>
-
+    <script>
+      window.onload = function() {
+        const error = document.getElementById("errors");
+        const errors = document.querySelectorAll(".errorInput");
+        if(errors.length > 0) {
+          for(let error of errors) {
+            if(error.innerHTML.includes('title')) {
+              title.style.border = '1px solid red';
+            }
+            if (error.innerHTML.includes('year')) {
+              year.style.border = '1px solid red';
+            }
+            if (error.innerHTML.includes('stars')) {
+              stars.style.border = '1px solid red';
+            }
+          }
+        } else {
+          console.log("not");
+        }
+      }
+    </script>
   </head>
   <body>
+    <% if(errors.length > 0) { %>
+        <section class="errors">
+            <ul>
+                <% for(error of errors) {%>
+                    <li id="errors" class="errorInput"><%= error.param %> <%= error.msg %></li>
+                    <% } %>
+            </ul>
+        </section>
+    <% } %>
     <form class="" action="/add" method="post">
       <div class="input-group mb-3">
         <input class="form-control" type="text" id="title" name="title" placeholder="title...">
@@ -16,7 +45,7 @@
         </div>
       </div>
       <div class="input-group mb-3">
-        <input class="form-control" type="text" id="year" name="year" placeholder="year..." pattern="(19\d\d)|(20[01]\d)">
+        <input class="form-control" type="text" id="year" name="year" placeholder="year..." >
         <div class="input-group-append">
           <span class="input-group-text" id="basic-addon2">year</span>
         </div>
@@ -38,7 +67,6 @@
           <span class="input-group-text" id="basic-addon2">stars</span>
         </div>
       </div>
-      <p><%= error %></p>
       <button class="btn btn-secondary" type="submit">Add</button>
     </form>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

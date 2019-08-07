@@ -8,23 +8,28 @@
           const NameStars = document.querySelectorAll(".NameStars");
           const error = document.querySelectorAll(".error");
           const searchNameFilm = document.getElementById("searchName");
+          const searchStar = document.getElementById("searchStar");
+
           searchNameFilm.addEventListener("keyup", searchTitle, false);
           searchNameFilm.addEventListener("click", deleteElementFromStar, false);
-          const searchStar = document.getElementById("searchStar");
+
           searchStar.addEventListener("keyup", searchStars, false);
           searchStar.addEventListener("click", deleteElementFromName, false);
+
           function deleteElementFromStar() {
             searchStar.value = "";
             for(item of NameStars) {
               item.style.display = 'table-row';
             }
           }
+
           function deleteElementFromName() {
             searchNameFilm.value = "";
             for(item of NameStars) {
               item.style.display = 'table-row';
             }
           }
+
           function searchStars() {
             const items = document.querySelectorAll(".stars");
             Array.prototype.forEach.call(items, function(el, index) {
@@ -55,11 +60,29 @@
             isArrayEmpty();
           }
       }
+      let isWindow = false;
+      function confirm (value) {
+        if(!isWindow) {
+          document.getElementById("windowConfirm").style.display = 'block';
+          document.getElementById("yes").value = value;
+          isWindow = true;
+        } else {
+          document.getElementById("windowConfirm").style.display = 'none';
+          isWindow = false;
+        }
+      }
     </script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <title>Films</title>
   </head>
   <body>
+    <% if(error !== "") { %>
+        <section class="errors">
+            <ul>
+                    <li id="errors" class="errorInput"> <%= error %></li>
+            </ul>
+        </section>
+    <% } %>
     <form method="post" enctype="multipart/form-data">
       <div class="input-group">
         <div class="custom-file">
@@ -67,11 +90,10 @@
           <label for="file" class="custom-file-label">Choose a file</label>
         </div>
         <div class="input-group-append">
-          <button class="btn btn-outline-secondary"> Send the file</button>
+          <button class="btn btn-outline-secondary" name="myFile" value="true"> Send the file</button>
         </div>
       </div>
     </form>
-    <p><%= error %></p>
     <form class="" action="/" method="post">
       <div class="input-group mb-3">
         <input id="searchName" class="form-control" type="text" name="searchName" placeholder="search name...">
@@ -99,11 +121,28 @@
         <tr class="NameStars">
             <td class="element"><a href="info/<%= item._id %>"><%= item.Title %></a></td>
             <td class="stars"><%= item.Stars %></td>
-            <td> <form class="" action="/" method="post"><button type="submit" value="<%= item.Title %>" name="deleteSubmit" class="btn btn-danger">Delete</button></form></td>
+            <td>
+                <button type="submit" value="<%= item.Title %>" name="deleteSubmit" id="deleteSubmit" class="btn btn-danger" onclick="confirm(this.value)">Delete</button>
+            </td>
         </tr>
           <% } %>
           <tr class="error"><td>Not found</td></tr>
       </table>
+      <div id="windowConfirm" class="windowConfirm">
+        <div class="popup">
+          <p>Are you sure? Do you want to delete the film?</p>
+          <div class="twoButtons">
+            <div class="button">
+              <form action="/" method="post">
+                <button type="submit" class="btn btn-success" name="yes" id="yes">Yes</button>
+              </form>
+            </div>
+            <div class="button">
+              <button type="submit" class="btn btn-danger" name="no" onclick="confirm('')">No</button>
+            </div>
+          </div>
+        </div>
+      </div>
 
       <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
